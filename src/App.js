@@ -33,8 +33,9 @@ const WrapperImages = styled.section`
 function App() {
   const [images, setImage] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+
   const apiRoot = "https://api.unsplash.com";
-  const accessKey = '3gP71brc5stZTgliOdZEDgfAVQ-zQO_vQXinqHonSaE'
+  const accessKey = 'lMHa1efEUx-NUADOm8eKdo0vRkibyjOq-0bmxl7g5ww'
 
   useEffect(() => {
     fetchImages();
@@ -54,18 +55,15 @@ function App() {
         }));
 
         setImage(prevImages => [...prevImages, ...fetchedImages]);
-        // setIsFetching(false);
       })
       .catch(error => {
         console.log('Error:', error);
-        // setIsFetching(false);
       });
   }
 
 
   const handleSearch = (query) => {
-
-    setImage([]);
+    
     setSearchResults([]);
 
     if (query.trim() === '') {
@@ -74,9 +72,9 @@ function App() {
     }
 
     fetch(`${apiRoot}/search/photos?query=${query}&client_id=${accessKey}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const results = data.results.map((result) => ({
+      .then(res => res.json())
+      .then(data => {
+        const results = data.results.map(result => ({
           id: result.id,
           url: result.urls.thumb,
           description: result.alt_description,
@@ -91,10 +89,6 @@ function App() {
       })
   }
 
-  const nextPage = () => {
-    fetchImages();
-  }
-
 
   return (
     <div>
@@ -103,7 +97,7 @@ function App() {
       <Search onSearch={handleSearch} />
       <InfiniteScroll
         dataLength={images.length}
-        next={nextPage}
+        next={fetchImages}
         hasMore={true}
         loader={<Loader />}
       >
