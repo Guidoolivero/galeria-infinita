@@ -3,7 +3,8 @@ import { Heading } from './components/Heading';
 import { UnsplashImage } from './components/UnsplashImage';
 import { Loader } from './components/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Search } from './components/Search';
+// import { Search } from './components/Search';
+import { Resultados } from './components/Resultados';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
@@ -30,80 +31,100 @@ const WrapperImages = styled.section`
   grid-auto-rows: 300px;
 `;
 
+
 function App() {
   const [images, setImage] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
+  const [resultado, setResultados] = useState([]);
+  const [valor, setValor] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
 
   const apiRoot = "https://api.unsplash.com";
-  const accessKey = 'lMHa1efEUx-NUADOm8eKdo0vRkibyjOq-0bmxl7g5ww'
+  const accessKey = process.env.APP_ACCESSKEY;
 
   useEffect(() => {
     fetchImages();
   }, [])
 
-  const fetchImages = (count = 10) => {
+  const fetchImages = async (count = 100) => {
+    try {
+      const response = await fetch(`${apiRoot}/photos/random?client_id=${accessKey}&count=${count}&page=${currentPage}`)
+      const data = await response.json()
+      
+      const fetchedImages = data.map(image => ({
+        id: image.id,
+        url: image.urls.regular,
+        description: image.alt_description,
+        exif: image.exif.name,
+        location: image.location.city,
+      }));
 
-    fetch(`${apiRoot}/photos/random?client_id=${accessKey}&count=${count}`)
-      .then(response => response.json())
-      .then(data => {
-        const fetchedImages = data.map(image => ({
-          id: image.id,
-          url: image.urls.thumb,
-          description: image.alt_description,
-          exif: image.exif.name,
-          location: image.location.city,
-        }));
+      setImage(prevImages => [...prevImages, ...fetchedImages]);
+      setCurrentPage(prevPage => prevPage + 1);
 
-        setImage(prevImages => [...prevImages, ...fetchedImages]);
-      })
-      .catch(error => {
+      console.log(data);
+
+    } catch {
+      (error) => {
         console.log('Error:', error);
-      });
+      }
+    }
   }
 
 
-  const handleSearch = (query) => {
-    
-    setSearchResults([]);
+  const buscarResultados = async () => {
+    try {
+      const accessKey = process.env.APP_ACCESSKEY;
+      const apiRoot = `https://api.unsplash.com/search/photos/?client_id=${accessKey}&query=${valor}&page=${currentPage}`;
 
-    if (query.trim() === '') {
-      fetchImages();
-      return;
-    }
+      const response = await fetch(apiRoot);
+      const data = await response.json();
 
-    fetch(`${apiRoot}/search/photos?query=${query}&client_id=${accessKey}`)
-      .then(res => res.json())
-      .then(data => {
-        const results = data.results.map(result => ({
+      const fetchedImages = data.results
+        .filter(result => result.description) // Filtrar resultados con descripción definida
+        .map(result => ({
           id: result.id,
-          url: result.urls.thumb,
+          url: result.urls.regular,
           description: result.alt_description,
-          exif: result.exif.name,
-          location: result.location.city,
+          exif: result.exif ? result.exif.name : 'Sin información de exif',
+          location: result.location ? result.location.city : 'Sin información de ubicación',
         }));
 
-        setSearchResults(results)
-      })
-      .catch((error) => {
-        console.log('error', error)
-      })
-  }
+      setResultados(prevResults => [...prevResults, ...fetchedImages]);
+      setCurrentPage(prevPage => prevPage + 1); // Incrementar el número de página para la próxima búsqueda
+
+      console.log(data);
+    } catch (error) {
+      console.error('Error searching images:', error);
+    }
+  };
+
+
+
+  // const nextPage = () => {
+  //   fetchImages();
+  // }
+
 
 
   return (
     <div>
       <Heading />
       <GlobalStyle />
-      <Search onSearch={handleSearch} />
       <InfiniteScroll
-        dataLength={images.length}
-        next={fetchImages}
+        dataLength={resultado.length}
+        next={valor.trim() === '' ? fetchImages : buscarResultados}
         hasMore={true}
         loader={<Loader />}
       >
         <WrapperImages>
-          {searchResults.length > 0
-            ? searchResults.map((image) => (
+          <div className='search__box'>
+            <input className='search__box--input' placeholder='Buscar imagenes' onChange={e => setValor(e.target.value)} />
+            <button className='search__box--btn' onClick={() => buscarResultados()}>Buscar</button>
+          </div>
+
+          {valor.trim() === '' ? (
+            images.map((image) => (
               <UnsplashImage
                 key={image.id}
                 url={image.url}
@@ -112,21 +133,20 @@ function App() {
                 location={image.location}
               />
             ))
-            : images.map((image) => (
-              <UnsplashImage
-                key={image.id}
-                url={image.url}
-                description={image.description}
-                exif={image.exif}
-                location={image.location}
+          ) : (
+            resultado.map((results) => (
+              <Resultados
+                key={results.id}
+                url={results.url}
+                description={results.description}
+                exif={results.exif}
+                location={results.location}
               />
-            ))}
-
-
+            ))
+          )}
         </WrapperImages>
       </InfiniteScroll>
     </div>
-  );
+  )
 }
-
 export default App;
