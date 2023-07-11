@@ -3,11 +3,10 @@ import { Heading } from './components/Heading';
 import { UnsplashImage } from './components/UnsplashImage';
 import { Loader } from './components/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
-// import { Search } from './components/Search';
 import { Resultados } from './components/Resultados';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-
+import axios from 'axios'
 
 // Style
 const GlobalStyle = createGlobalStyle`
@@ -31,6 +30,12 @@ const WrapperImages = styled.section`
   grid-auto-rows: 300px;
 `;
 
+const Div = styled.div `
+display: flex;
+
+
+`;
+
 
 function App() {
   const [images, setImage] = useState([]);
@@ -39,49 +44,49 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
 
 
-  const apiRoot = "https://api.unsplash.com";
-  const accessKey = process.env.APP_ACCESSKEY;
+
+  const accessKey = 'ciwOoPuaPQzIa6JTNqFT3v--t5imQOjpVcjI1zerViQ';
 
   useEffect(() => {
     fetchImages();
   }, [])
 
-  const fetchImages = async (count = 100) => {
+  const fetchImages = async () => {
     try {
-      const response = await fetch(`${apiRoot}/photos/random?client_id=${accessKey}&count=${count}&page=${currentPage}`)
-      const data = await response.json()
-      
+      const count = 10;
+      const apiRoot = `https://api.unsplash.com/photos/random/?client_id=${accessKey}&count=${count}&page=${currentPage}`;
+
+      const response = await axios.get(apiRoot);
+      const data = response.data;
+
       const fetchedImages = data.map(image => ({
-        id: image.id,
-        url: image.urls.regular,
-        description: image.alt_description,
-        exif: image.exif.name,
-        location: image.location.city,
-      }));
+          id: image.id,
+          url: image.urls.regular,
+          description: image.alt_description,
+          exif: image.exif ? image.exif.name : 'Sin información de exif',
+          location: image.location ? image.location.city : 'Sin información de ubicación',
+        }));
 
       setImage(prevImages => [...prevImages, ...fetchedImages]);
       setCurrentPage(prevPage => prevPage + 1);
 
       console.log(data);
-
-    } catch {
-      (error) => {
-        console.log('Error:', error);
-      }
+    } catch (error) {
+      console.error('Error fetching images:', error);
     }
-  }
+  };
+
 
 
   const buscarResultados = async () => {
     try {
-      const accessKey = process.env.APP_ACCESSKEY;
       const apiRoot = `https://api.unsplash.com/search/photos/?client_id=${accessKey}&query=${valor}&page=${currentPage}`;
 
-      const response = await fetch(apiRoot);
-      const data = await response.json();
+      const response = await axios.get(apiRoot);
+      const data = response.data;
 
       const fetchedImages = data.results
-        .filter(result => result.description) // Filtrar resultados con descripción definida
+        .filter(result => result.description)
         .map(result => ({
           id: result.id,
           url: result.urls.regular,
@@ -101,32 +106,26 @@ function App() {
 
 
 
-  // const nextPage = () => {
-  //   fetchImages();
-  // }
-
-
-
   return (
     <div>
       <Heading />
       <GlobalStyle />
       <InfiniteScroll
-        dataLength={resultado.length}
+        dataLength={valor.trim() === '' ? images.length :resultado.length}
         next={valor.trim() === '' ? fetchImages : buscarResultados}
         hasMore={true}
         loader={<Loader />}
       >
         <WrapperImages>
-          <div className='search__box'>
-            <input className='search__box--input' placeholder='Buscar imagenes' onChange={e => setValor(e.target.value)} />
-            <button className='search__box--btn' onClick={() => buscarResultados()}>Buscar</button>
-          </div>
+          <Div>
+            <input placeholder='Buscar imagenes' onChange={e => setValor(e.target.value)} />
+            <button onClick={() => buscarResultados()}>Buscar</button>
+          </Div>
 
           {valor.trim() === '' ? (
-            images.map((image) => (
+            images.map((image, index) => (
               <UnsplashImage
-                key={image.id}
+                key={image.id + index}
                 url={image.url}
                 description={image.description}
                 exif={image.exif}
@@ -134,9 +133,9 @@ function App() {
               />
             ))
           ) : (
-            resultado.map((results) => (
+            resultado.map((results, index) => (
               <Resultados
-                key={results.id}
+                key={results.id + index}
                 url={results.url}
                 description={results.description}
                 exif={results.exif}
