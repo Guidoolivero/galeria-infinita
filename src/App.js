@@ -23,16 +23,15 @@ const GlobalStyle = createGlobalStyle`
 
 const WrapperImages = styled.section`
   max-width: 70rem;
-  margin: 6rem auto;
+  margin: 4rem auto;
   display: grid;
-  grid-gap: 2em;
+  grid-gap: 1.5em;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-auto-rows: 300px;
 `;
 
 const SearchBarContainer = styled.div`
   display: flex;
-  flex-wrap: wrap
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
@@ -40,13 +39,11 @@ const SearchBarContainer = styled.div`
 
 const SearchInput = styled.input`
   padding: 10px;
-  border: none;
+  border: 1px solid #3336ff;
   border-radius: 4px;
-  border-color: #3336ff;
   font-size: 16px;
   width: 300px;
   margin-right: .2rem;
-  flex-wrap: wrap
 `;
 
 const SearchButton = styled.button`
@@ -57,7 +54,7 @@ const SearchButton = styled.button`
   color: #fff;
   font-size: 16px;
   cursor: pointer;
-  flex-wrap: wrap
+
   &:hover {
     background-color: #3336ff ;
   }
@@ -81,7 +78,7 @@ function App() {
   const fetchImages = async () => {
     try {
       const count = 10;
-      const apiRoot = `https://api.unsplash.com/photos/random/?client_id=${accessKey}&count=${count}&page=${currentPage}`;
+      const apiRoot = `https://api.unsplash.com/photos/random?client_id=${accessKey}&count=${count}&page=${currentPage}`;
 
       const response = await axios.get(apiRoot);
       const data = response.data;
@@ -145,7 +142,7 @@ function App() {
       >
 
         <SearchBarContainer>
-          <SearchInput placeholder='Buscar imagenes' onChange={e => setValor(e.target.value)} />
+          <SearchInput onChange={e => setValor(e.target.value)} placeholder='Buscar imagenes...' />
           <SearchButton onClick={() => buscarResultados()}>Buscar</SearchButton>
         </SearchBarContainer>
 

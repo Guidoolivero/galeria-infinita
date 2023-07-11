@@ -17,10 +17,6 @@ export const Heading = () => {
   return (
     <Header>
       <H1>Galeria infinita</H1>
-      {/* <form>
-        <Input type="text" placeholder="Search photos" />
-        <Button>Search</Button>
-      </form> */}
     </Header>
   )
 }

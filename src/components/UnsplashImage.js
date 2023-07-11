@@ -22,7 +22,6 @@ display: -webkit-box;
 overflow: hidden;
 font-size: .8rem;
 align-items: center;
-
 `;
 
 
