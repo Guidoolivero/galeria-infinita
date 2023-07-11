@@ -5,6 +5,10 @@ const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  margin-bottom: 1.2rem;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 const Div = styled.div`
   display: flex;
@@ -18,6 +22,7 @@ display: -webkit-box;
 overflow: hidden;
 font-size: .8rem;
 align-items: center;
+
 `;
 
 

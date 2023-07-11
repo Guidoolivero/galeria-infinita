@@ -23,17 +23,44 @@ const GlobalStyle = createGlobalStyle`
 
 const WrapperImages = styled.section`
   max-width: 70rem;
-  margin: 4rem auto;
+  margin: 6rem auto;
   display: grid;
-  grid-gap: 1em;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 2em;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-auto-rows: 300px;
 `;
 
-const Div = styled.div `
-display: flex;
+const SearchBarContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
 
+const SearchInput = styled.input`
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  border-color: #3336ff;
+  font-size: 16px;
+  width: 300px;
+  margin-right: .2rem;
+  flex-wrap: wrap
+`;
 
+const SearchButton = styled.button`
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  flex-wrap: wrap
+  &:hover {
+    background-color: #3336ff ;
+  }
 `;
 
 
@@ -60,12 +87,12 @@ function App() {
       const data = response.data;
 
       const fetchedImages = data.map(image => ({
-          id: image.id,
-          url: image.urls.regular,
-          description: image.alt_description,
-          exif: image.exif ? image.exif.name : 'Sin información de exif',
-          location: image.location ? image.location.city : 'Sin información de ubicación',
-        }));
+        id: image.id,
+        url: image.urls.regular,
+        description: image.alt_description,
+        exif: image.exif ? image.exif.name : 'Sin información de camara',
+        location: image.location ? image.location.city : 'Sin información de ubicación',
+      }));
 
       setImage(prevImages => [...prevImages, ...fetchedImages]);
       setCurrentPage(prevPage => prevPage + 1);
@@ -91,7 +118,7 @@ function App() {
           id: result.id,
           url: result.urls.regular,
           description: result.alt_description,
-          exif: result.exif ? result.exif.name : 'Sin información de exif',
+          exif: result.exif ? result.exif.name : 'Sin información de camara',
           location: result.location ? result.location.city : 'Sin información de ubicación',
         }));
 
@@ -111,17 +138,18 @@ function App() {
       <Heading />
       <GlobalStyle />
       <InfiniteScroll
-        dataLength={valor.trim() === '' ? images.length :resultado.length}
+        dataLength={valor.trim() === '' ? images.length : resultado.length}
         next={valor.trim() === '' ? fetchImages : buscarResultados}
         hasMore={true}
         loader={<Loader />}
       >
-        <WrapperImages>
-          <Div>
-            <input placeholder='Buscar imagenes' onChange={e => setValor(e.target.value)} />
-            <button onClick={() => buscarResultados()}>Buscar</button>
-          </Div>
 
+        <SearchBarContainer>
+          <SearchInput placeholder='Buscar imagenes' onChange={e => setValor(e.target.value)} />
+          <SearchButton onClick={() => buscarResultados()}>Buscar</SearchButton>
+        </SearchBarContainer>
+
+        <WrapperImages>
           {valor.trim() === '' ? (
             images.map((image, index) => (
               <UnsplashImage
