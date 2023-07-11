@@ -30,7 +30,7 @@ const WrapperImages = styled.section`
   grid-auto-rows: 300px;
 `;
 
-const SearchBarContainer = styled.div`
+const SearchBarContainer = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +69,7 @@ function App() {
 
 
 
-  const accessKey = 'ciwOoPuaPQzIa6JTNqFT3v--t5imQOjpVcjI1zerViQ';
+  const accessKey = 'lMHa1efEUx-NUADOm8eKdo0vRkibyjOq-0bmxl7g5ww';
 
   useEffect(() => {
     fetchImages();
@@ -100,9 +100,13 @@ function App() {
     }
   };
 
-
+  const eliminarResultados = () => {
+    setImage([])
+    setResultados([])
+  }
 
   const buscarResultados = async () => {
+
     try {
       const apiRoot = `https://api.unsplash.com/search/photos/?client_id=${accessKey}&query=${valor}&page=${currentPage}`;
 
@@ -119,7 +123,7 @@ function App() {
           location: result.location ? result.location.city : 'Sin información de ubicación',
         }));
 
-      setResultados(prevResults => [...prevResults, ...fetchedImages]);
+      setResultados(prevImages => [...prevImages, ...fetchedImages]);
       setCurrentPage(prevPage => prevPage + 1); // Incrementar el número de página para la próxima búsqueda
 
       console.log(data);
@@ -142,8 +146,9 @@ function App() {
       >
 
         <SearchBarContainer>
-          <SearchInput onChange={e => setValor(e.target.value)} placeholder='Buscar imagenes...' />
-          <SearchButton onClick={() => buscarResultados()}>Buscar</SearchButton>
+          <input onChange={e => setValor(e.target.value)} placeholder='Buscar imagenes...' />
+          <button onClick={() => buscarResultados()}>Buscar</button>
+          <button onClick={() => eliminarResultados()}>Eliminar</button>
         </SearchBarContainer>
 
         <WrapperImages>
