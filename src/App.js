@@ -4,9 +4,10 @@ import { UnsplashImage } from './components/UnsplashImage';
 import { Loader } from './components/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Resultados } from './components/Resultados';
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-import axios from 'axios'
+import axios from 'axios';
+import {index} from './'
 
 // Style
 const GlobalStyle = createGlobalStyle`
@@ -38,7 +39,7 @@ const SearchBarContainer = styled.section`
   margin-bottom: 20px;
 `;
 
-const Input = styled.input`
+const Input= styled.input`
   padding: 10px;
   border: 1px solid #3336ff;
   border-radius: 4px;
@@ -47,7 +48,7 @@ const Input = styled.input`
   margin-right: .2rem;
 `;
 
-const buscarImagenes {}
+
 const Div = styled.div`
   display: flex;
   margin-top: 1rem;
@@ -148,9 +149,16 @@ function App() {
       >
 
         <SearchBarContainer>
-          <input className='buscarImagenes' onChange={(e => setValor(e.target.value))} placeholder='Buscar imagenes...' />
+          <Input
+            onChange={(e => setValor(e.target.value))}
+            placeholder='Buscar imagenes...'
+          />
           <Div>
             <SearchButton onClick={() => { buscarResultados(); setResultados([]); }}>Buscar</SearchButton>
+            {/* Imagend de una lupa */}
+            {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg> */}
           </Div>
         </SearchBarContainer>
 
