@@ -4,7 +4,7 @@ import { UnsplashImage } from './components/UnsplashImage';
 import { Loader } from './components/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Resultados } from './components/Resultados';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import axios from 'axios'
 
@@ -32,12 +32,13 @@ const WrapperImages = styled.section`
 
 const SearchBarContainer = styled.section`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
 `;
 
-const SearchInput = styled.input`
+const Input = styled.input`
   padding: 10px;
   border: 1px solid #3336ff;
   border-radius: 4px;
@@ -46,17 +47,24 @@ const SearchInput = styled.input`
   margin-right: .2rem;
 `;
 
+const buscarImagenes {}
+const Div = styled.div`
+  display: flex;
+  margin-top: 1rem;
+`;
+
 const SearchButton = styled.button`
   padding: 10px 20px;
   background-color: #007bff;
   border: none;
-  border-radius: 0 4px 4px 0;
+  border-radius: 4px;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
-
+  margin-right: 1rem;
   &:hover {
     background-color: #3336ff ;
+    transform:scale(1.1);
   }
 `;
 
@@ -67,9 +75,7 @@ function App() {
   const [valor, setValor] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-
-
-  const accessKey = 'lMHa1efEUx-NUADOm8eKdo0vRkibyjOq-0bmxl7g5ww';
+  const accessKey = 'ciwOoPuaPQzIa6JTNqFT3v--t5imQOjpVcjI1zerViQ';
 
   useEffect(() => {
     fetchImages();
@@ -100,16 +106,11 @@ function App() {
     }
   };
 
-  const eliminarResultados = () => {
-    setImage([])
-    setResultados([])
-  }
+
 
   const buscarResultados = async () => {
 
     try {
-
-      eliminarResultados()
 
       const apiRoot = `https://api.unsplash.com/search/photos/?client_id=${accessKey}&query=${valor}&page=${currentPage}`;
 
@@ -126,7 +127,7 @@ function App() {
           location: result.location ? result.location.city : 'Sin información de ubicación',
         }));
 
-      setResultados(prevImages => [...prevImages, ...fetchedImages]);
+      setResultados(prevResults => [...prevResults, ...fetchedImages]);
       setCurrentPage(prevPage => prevPage + 1); // Incrementar el número de página para la próxima búsqueda
 
       console.log(data);
@@ -134,8 +135,6 @@ function App() {
       console.error('Error searching images:', error);
     }
   };
-
-
 
   return (
     <div>
@@ -149,9 +148,10 @@ function App() {
       >
 
         <SearchBarContainer>
-          <input onChange={e => setValor(e.target.value)} placeholder='Buscar imagenes...' />
-          <button onClick={() => buscarResultados()}>Buscar</button>
-          <button onClick={() => eliminarResultados()}>Eliminar</button>
+          <input className='buscarImagenes' onChange={(e => setValor(e.target.value))} placeholder='Buscar imagenes...' />
+          <Div>
+            <SearchButton onClick={() => { buscarResultados(); setResultados([]); }}>Buscar</SearchButton>
+          </Div>
         </SearchBarContainer>
 
         <WrapperImages>
