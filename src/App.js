@@ -108,6 +108,9 @@ function App() {
   const buscarResultados = async () => {
 
     try {
+
+      eliminarResultados()
+
       const apiRoot = `https://api.unsplash.com/search/photos/?client_id=${accessKey}&query=${valor}&page=${currentPage}`;
 
       const response = await axios.get(apiRoot);
