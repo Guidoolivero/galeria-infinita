@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const WrapperImages = styled.section`
+const ContenedorImagenes = styled.section`
   max-width: 70rem;
   margin: 4rem auto;
   display: grid;
@@ -32,7 +32,7 @@ const WrapperImages = styled.section`
   grid-auto-rows: 300px;
 `;
 
-const SearchBarContainer = styled.section`
+const ContenedorBarraBusqueda = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,7 +128,7 @@ function App() {
         }));
 
       setResultados(prevResults => [...prevResults, ...fetchedImages]);
-      setCurrentPage(prevPage => prevPage + 1); // Incrementar el número de página para la próxima búsqueda
+      setCurrentPage(prevPage => prevPage + 1);
 
       console.log(data);
     } catch (error) {
@@ -147,7 +147,7 @@ function App() {
         loader={<Loader />}
       >
 
-        <SearchBarContainer>
+        <ContenedorBarraBusqueda>
           <Input
             onChange={(e => setValor(e.target.value))}
             placeholder='Buscar imagenes...'
@@ -159,9 +159,9 @@ function App() {
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
             </svg> */}
           </Div>
-        </SearchBarContainer>
+        </ContenedorBarraBusqueda>
 
-        <WrapperImages>
+        <ContenedorImagenes>
           {valor.trim() === '' ? (
             images.map((image, index) => (
               <UnsplashImage
@@ -183,7 +183,7 @@ function App() {
               />
             ))
           )}
-        </WrapperImages>
+        </ContenedorImagenes>
       </InfiniteScroll>
     </div>
   )
