@@ -7,7 +7,8 @@ import { Resultados } from './components/Resultados';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import axios from 'axios';
-import 'tailwindcss/tailwind.css'
+import 'tailwindcss/tailwind.css';
+import accessKey from './components/config';
 
 // Style
 const GlobalStyle = createGlobalStyle`
@@ -39,7 +40,7 @@ const SearchBarContainer = styled.section`
   margin-bottom: 20px;
 `;
 
-const Input= styled.input`
+const Input = styled.input`
   padding: 10px;
   border: 1px solid #3336ff;
   border-radius: 4px;
@@ -75,8 +76,6 @@ function App() {
   const [resultado, setResultados] = useState([]);
   const [valor, setValor] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-
-  const accessKey = 'ciwOoPuaPQzIa6JTNqFT3v--t5imQOjpVcjI1zerViQ';
 
   useEffect(() => {
     fetchImages();
