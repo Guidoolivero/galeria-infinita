@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import 'tailwindcss/tailwind.css'
+
 
 const Img = styled.img`
   width: 100%;
@@ -47,7 +49,7 @@ export const UnsplashImage = ({ url, description, exif, location }) => {
           )}
 
           {description && description.length <= 50 ? (
-            <P>{description}</P>
+            <P className='text-red-700'>{description}</P>
           ) : (
             <P>Sin informacion</P>
           )}
