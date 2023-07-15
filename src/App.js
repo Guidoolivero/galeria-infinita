@@ -4,10 +4,10 @@ import { UnsplashImage } from './components/UnsplashImage';
 import { Loader } from './components/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Resultados } from './components/Resultados';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import axios from 'axios';
-import {index} from './'
+import 'tailwindcss/tailwind.css'
 
 // Style
 const GlobalStyle = createGlobalStyle`
