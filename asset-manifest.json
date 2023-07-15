@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/galeria-infinita/static/css/main.e6c13ad2.css",
+    "main.js": "/galeria-infinita/static/js/main.3b72643d.js",
+    "static/js/787.18c6c6b0.chunk.js": "/galeria-infinita/static/js/787.18c6c6b0.chunk.js",
+    "index.html": "/galeria-infinita/index.html",
+    "main.e6c13ad2.css.map": "/galeria-infinita/static/css/main.e6c13ad2.css.map",
+    "main.3b72643d.js.map": "/galeria-infinita/static/js/main.3b72643d.js.map",
+    "787.18c6c6b0.chunk.js.map": "/galeria-infinita/static/js/787.18c6c6b0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.3b72643d.js"
+  ]
+}
