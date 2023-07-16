@@ -41,11 +41,12 @@ const ContenedorBarraBusqueda = styled.section`
 `;
 
 const Input = styled.input`
-  padding: 10px;
+  padding: 1rem;
   border: 1px solid #3336ff;
   border-radius: 4px;
   font-size: 16px;
   width: 300px;
+  margin-top: .5rem;
   margin-right: .2rem;
 `;
 
@@ -137,7 +138,7 @@ function App() {
   };
 
   return (
-    <div>
+    <>
       <Heading />
       <GlobalStyle />
       <InfiniteScroll
@@ -150,6 +151,12 @@ function App() {
         <ContenedorBarraBusqueda>
           <Input
             onChange={(e => setValor(e.target.value))}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                buscarResultados();
+                setResultados([]);
+              }
+            }}
             placeholder='Buscar imagenes...'
           />
           <Div>
@@ -185,7 +192,7 @@ function App() {
           )}
         </ContenedorImagenes>
       </InfiniteScroll>
-    </div>
+    </>
   )
 }
 export default App;

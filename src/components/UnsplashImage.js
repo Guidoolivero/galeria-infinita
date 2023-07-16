@@ -20,7 +20,7 @@ const Div = styled.div`
 const P = styled.p`
 display: -webkit-box;
 -webkit-box-orient: vertical;
--webkit-line-clamp: 2; /* Número máximo de líneas a mostrar */
+-webkit-line-clamp: 2;
 overflow: hidden;
 font-size: .8rem;
 align-items: center;
