@@ -44,9 +44,9 @@ export const Resultados = ({ url, description, exif, location }) => {
                     )}
 
                     {description && description.length <= 50 ? (
-                        <P>{description}</P>
+                        <P className='text-red-700'>{description}</P>
                     ) : (
-                        <P>Sin informacion</P>
+                        <P className='text-red-700'>Sin informacion</P>
                     )}
                 </Div>
             </Div>
