@@ -4,7 +4,6 @@ import { UnsplashImage } from './components/UnsplashImage';
 import { Loader } from './components/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Resultados } from './components/Resultados';
-import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import axios from 'axios';
 import 'tailwindcss/tailwind.css';
@@ -22,54 +21,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: sans-serif;
   }
 `;
-
-// const ContenedorImagenes = styled.section`
-//   max-width: 70rem;
-//   margin: 4rem auto;
-//   display: grid;
-//   grid-gap: 1.5em;
-//   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-//   grid-auto-rows: 300px;
-// `;
-
-// const ContenedorBarraBusqueda = styled.section`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   margin-bottom: 20px;
-// `;
-
-// const Input = styled.input`
-//   padding: 1rem;
-//   border: 1px solid #3336ff;
-//   border-radius: 4px;
-//   font-size: 16px;
-//   width: 300px;
-//   margin-top: .5rem;
-//   margin-right: .2rem;
-// `;
-
-
-// const Div = styled.div`
-//   display: flex;
-//   margin-top: 1rem;
-// `;
-
-// const SearchButton = styled.button`
-//   padding: 10px 20px;
-//   background-color: #007bff;
-//   border: none;
-//   border-radius: 4px;
-//   color: #fff;
-//   font-size: 16px;
-//   cursor: pointer;
-//   margin-right: 1rem;
-//   &:hover {
-//     background-color: #3336ff ;
-//     transform:scale(1.1);
-//   }
-// `;
 
 
 function App() {
@@ -160,10 +111,12 @@ function App() {
             placeholder='Buscar imagenes...'
           />
           {/* Boton */}
-          <button className='ml-[-2rem] mt-4 cursor-pointer hover:scale-125'
+          <button className='ml-[-2.2rem] mt-4 cursor-pointer hover:scale-125'
             onClick={() => { buscarResultados(); setResultados([]); }}>
             {/* Imagen de una lupa */}
-            <svg xmlns="http://www.w3.org/2000/svg"
+            <svg
+              className="text-gray-500 hover:text-blue-600"
+              xmlns="http://www.w3.org/2000/svg"
               width="20" height="20"
               fill="currentColor"
               viewBox="0 0 16 16">
@@ -197,6 +150,7 @@ function App() {
           )}
         </div>
       </InfiniteScroll>
+
     </>
   )
 }

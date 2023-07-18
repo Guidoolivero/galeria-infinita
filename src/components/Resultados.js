@@ -4,12 +4,13 @@ import 'tailwindcss/tailwind.css'
 
 const Img = styled.img`
   width: 100%;
-  height: 100%;
+  height: 20rem;
   object-fit: cover;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
   &:hover {
     transform: scale(1.1);
   }
+  
 `;
 const Div = styled.div`
   display: flex;
@@ -19,11 +20,12 @@ const Div = styled.div`
 const P = styled.p`
 display: -webkit-box;
 -webkit-box-orient: vertical;
--webkit-line-clamp: 2; 
+-webkit-line-clamp: 2;
 overflow: hidden;
 font-size: .8rem;
 align-items: center;
 `;
+
 
 export const Resultados = ({ url, description, exif, location }) => {
     return (

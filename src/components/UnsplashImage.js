@@ -7,7 +7,7 @@ const Img = styled.img`
   width: 100%;
   height: 20rem;
   object-fit: cover;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.5rem;
   &:hover {
     transform: scale(1.1);
   }
