@@ -10,6 +10,9 @@ const Img = styled.img`
   margin-bottom: 1.5rem;
   &:hover {
     transform: scale(1.1);
+    transition: transform 0.5s, border-radius 0.5s;
+    border-radius: .5rem;
+    transition: ;
   }
   
 `;

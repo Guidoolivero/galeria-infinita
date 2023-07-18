@@ -7,8 +7,12 @@ const Img = styled.img`
   height: 20rem;
   object-fit: cover;
   margin-bottom: 1.5rem;
+  border-radius: .5rem;
   &:hover {
     transform: scale(1.1);
+    transition: transform 0.5s, border-radius 0.5s;
+    border-radius: .5rem;
+    transition: ;
   }
   
 `;

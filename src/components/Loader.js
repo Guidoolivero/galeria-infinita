@@ -7,14 +7,15 @@ text-align: center;
 .lds-ellipsis {
   display: inline-block;
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 10rem;
+  height: 50rem;
 }
 .lds-ellipsis div {
   position: absolute;
-  top: 33px;
+  top: 10rem;
   width: 13px;
   height: 13px;
+  margin-left: 25rem;
   border-radius: 50%;
   background: #222;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);

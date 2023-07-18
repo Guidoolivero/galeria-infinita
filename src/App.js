@@ -28,12 +28,14 @@ function App() {
   const [resultado, setResultados] = useState([]);
   const [valor, setValor] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchImages();
   }, [])
 
   const fetchImages = async () => {
+    setIsLoading(true);
     try {
       const count = 10;
       const apiRoot = `https://api.unsplash.com/photos/random?client_id=${accessKey}&count=${count}&page=${currentPage}`;
@@ -55,13 +57,14 @@ function App() {
       console.log(data);
     } catch (error) {
       console.error('Error fetching images:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
 
 
   const buscarResultados = async () => {
-
     try {
 
       const apiRoot = `https://api.unsplash.com/search/photos/?client_id=${accessKey}&query=${valor}&page=${currentPage}`;
@@ -98,7 +101,7 @@ function App() {
         hasMore={true}
         loader={<Loader />}
       >
-
+        {/* Contenedor del input y boton*/}
         <div className='flex items-center justify-center mb-8 mr-2'>
           <input className='p-2 border mt-4 border-blue-500 rounded-md text-lg w-72 mr-1'
             onChange={(e => setValor(e.target.value))}
@@ -125,9 +128,11 @@ function App() {
           </button>
 
         </div>
-
-        <div className='max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {valor.trim() === '' ? (
+            {/* Contenedor de las imagenes */}
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {isLoading ? (
+            <Loader /> // Mostrar el loader si isLoading es true
+          ) : valor.trim() === '' ? (
             images.map((image, index) => (
               <UnsplashImage
                 key={image.id + index}
@@ -137,7 +142,7 @@ function App() {
                 location={image.location}
               />
             ))
-          ) : (
+          ) : resultado.length > 0 ? (
             resultado.map((results, index) => (
               <Resultados
                 key={results.id + index}
@@ -147,10 +152,11 @@ function App() {
                 location={results.location}
               />
             ))
+          ) : (
+            <p>No se encontraron resultados</p>
           )}
         </div>
       </InfiniteScroll>
-
     </>
   )
 }
