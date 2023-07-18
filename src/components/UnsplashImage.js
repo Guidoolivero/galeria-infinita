@@ -5,17 +5,17 @@ import 'tailwindcss/tailwind.css'
 
 const Img = styled.img`
   width: 100%;
-  height: 70%;
+  height: 20rem;
   object-fit: cover;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.4rem;
   &:hover {
     transform: scale(1.1);
   }
+  
 `;
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: -5rem;
 `;
 
 const P = styled.p`
@@ -34,7 +34,9 @@ export const UnsplashImage = ({ url, description, exif, location }) => {
   return (
     <>
       <Div>
-        <Img src={url} alt="Unsplash" />
+        <Img
+          src={url}
+          alt="Unsplash" />
 
         <Div>
           {location && location.length <= 15 ? (
