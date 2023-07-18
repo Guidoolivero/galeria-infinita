@@ -5,7 +5,7 @@ import 'tailwindcss/tailwind.css'
 
 const Img = styled.img`
   width: 100%;
-  height: 100%;
+  height: 70%;
   object-fit: cover;
   margin-bottom: 1.2rem;
   &:hover {
@@ -15,6 +15,7 @@ const Img = styled.img`
 const Div = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: -5rem;
 `;
 
 const P = styled.p`

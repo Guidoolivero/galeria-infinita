@@ -23,53 +23,53 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const ContenedorImagenes = styled.section`
-  max-width: 70rem;
-  margin: 4rem auto;
-  display: grid;
-  grid-gap: 1.5em;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-auto-rows: 300px;
-`;
+// const ContenedorImagenes = styled.section`
+//   max-width: 70rem;
+//   margin: 4rem auto;
+//   display: grid;
+//   grid-gap: 1.5em;
+//   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+//   grid-auto-rows: 300px;
+// `;
 
-const ContenedorBarraBusqueda = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-`;
+// const ContenedorBarraBusqueda = styled.section`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   margin-bottom: 20px;
+// `;
 
-const Input = styled.input`
-  padding: 1rem;
-  border: 1px solid #3336ff;
-  border-radius: 4px;
-  font-size: 16px;
-  width: 300px;
-  margin-top: .5rem;
-  margin-right: .2rem;
-`;
+// const Input = styled.input`
+//   padding: 1rem;
+//   border: 1px solid #3336ff;
+//   border-radius: 4px;
+//   font-size: 16px;
+//   width: 300px;
+//   margin-top: .5rem;
+//   margin-right: .2rem;
+// `;
 
 
-const Div = styled.div`
-  display: flex;
-  margin-top: 1rem;
-`;
+// const Div = styled.div`
+//   display: flex;
+//   margin-top: 1rem;
+// `;
 
-const SearchButton = styled.button`
-  padding: 10px 20px;
-  background-color: #007bff;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  margin-right: 1rem;
-  &:hover {
-    background-color: #3336ff ;
-    transform:scale(1.1);
-  }
-`;
+// const SearchButton = styled.button`
+//   padding: 10px 20px;
+//   background-color: #007bff;
+//   border: none;
+//   border-radius: 4px;
+//   color: #fff;
+//   font-size: 16px;
+//   cursor: pointer;
+//   margin-right: 1rem;
+//   &:hover {
+//     background-color: #3336ff ;
+//     transform:scale(1.1);
+//   }
+// `;
 
 
 function App() {
@@ -148,7 +148,7 @@ function App() {
         loader={<Loader />}
       >
 
-        <div className='flex flex-col items-center justify-center mb-8'>
+        <div className='flex items-center justify-center mb-8 mr-2'>
           <input className='p-2 border mt-4 border-blue-500 rounded-md text-lg w-72 mr-1'
             onChange={(e => setValor(e.target.value))}
             onKeyDown={(e) => {
@@ -159,11 +159,17 @@ function App() {
             }}
             placeholder='Buscar imagenes...'
           />
-          <button className='p-3 m-4 bg-blue-500 rounded-md text-white font-semibold cursor-pointer hover:bg-blue-600' onClick={() => { buscarResultados(); setResultados([]); }}>Buscar</button>
-          {/* Imagend de una lupa */}
-          {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          {/* Boton */}
+          <button className='ml-[-2rem] mt-4 cursor-pointer hover:scale-125'
+            onClick={() => { buscarResultados(); setResultados([]); }}>
+            {/* Imagen de una lupa */}
+            <svg xmlns="http://www.w3.org/2000/svg"
+              width="20" height="20"
+              fill="currentColor"
+              viewBox="0 0 16 16">
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-            </svg> */}
+            </svg>
+          </button>
 
         </div>
 
