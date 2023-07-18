@@ -1,4 +1,4 @@
-# Unsplash Image Search
+# Buscador de imagenes
 
 Este proyecto es una aplicacion web que permite buscar y mostrar imagenes utilizando la API de Unsplash. Los usuarios pueden ingresar palabras clave en el campo de busqueda para buscar imagenes relacionadas y ver los resultados en forma de cuadricula.
 ## Caracteristicas
