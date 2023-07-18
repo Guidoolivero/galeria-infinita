@@ -1,3 +1,3 @@
-const accessKey = 'ciwOoPuaPQzIa6JTNqFT3v--t5imQOjpVcjI1zerViQ';
+const accessKey = 'W6o-HPJTwNcO1abXCpB0EATX8BnFSG8fCPjeFdSADfI';
 
 export default accessKey;
