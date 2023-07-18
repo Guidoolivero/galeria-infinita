@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/galeria-infinita/static/css/main.29dd032f.css",
-    "main.js": "/galeria-infinita/static/js/main.6e9014b6.js",
+    "main.js": "/galeria-infinita/static/js/main.10858273.js",
     "static/js/787.18c6c6b0.chunk.js": "/galeria-infinita/static/js/787.18c6c6b0.chunk.js",
     "index.html": "/galeria-infinita/index.html",
     "main.29dd032f.css.map": "/galeria-infinita/static/css/main.29dd032f.css.map",
-    "main.6e9014b6.js.map": "/galeria-infinita/static/js/main.6e9014b6.js.map",
+    "main.10858273.js.map": "/galeria-infinita/static/js/main.10858273.js.map",
     "787.18c6c6b0.chunk.js.map": "/galeria-infinita/static/js/787.18c6c6b0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.29dd032f.css",
-    "static/js/main.6e9014b6.js"
+    "static/js/main.10858273.js"
   ]
 }
